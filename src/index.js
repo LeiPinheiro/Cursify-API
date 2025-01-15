@@ -11,7 +11,7 @@ import swaggerDoc from '../swagger.json' assert {type: 'json'}
 const app = express();
 const port = 3000;
 
-app.use('https://cursify-api.vercel.app/', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 
 
