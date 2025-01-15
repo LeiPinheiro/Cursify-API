@@ -1,0 +1,617 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Cursify - API",
+        "version": "1.0.0",
+        "description": "Cursify é uma plataforma de cursos gratuitos, onde usuários podem fazer uploading de cursos e vídeos. As princípais features são: Login com JWT, edição de contas logadas, uploading de vídeos e edição de cursos e muito mais!"
+    },
+    "paths": {
+        "/users": {
+            "get": {
+                "summary": "Retorna todos os usuários",
+                "operationId": "getUsers",
+                "tags": [
+                    "Users"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuários encontrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao buscar usuários"
+                    }
+                }
+            }
+        },
+        "/user": {
+            "post": {
+                "summary": "Cria um novo usuário",
+                "operationId": "createUser",
+                "tags": [
+                    "Users"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário criado com sucesso"
+                    },
+                    "400": {
+                        "description": "Dados inválidos"
+                    },
+                    "500": {
+                        "description": "Erro ao criar usuário"
+                    }
+                }
+            }
+        },
+        "/user/{id}": {
+            "get": {
+                "summary": "Retorna um usuário pelo ID",
+                "operationId": "getUserById",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID do usuário",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado"
+                    },
+                    "500": {
+                        "description": "Erro ao buscar usuário"
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Atualiza um usuário",
+                "operationId": "updatingUser",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID do usuário",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário atualizado com sucesso"
+                    },
+                    "400": {
+                        "description": "Dados inválidos"
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado"
+                    },
+                    "500": {
+                        "description": "Erro ao atualizar usuário"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deleta um usuário",
+                "operationId": "userDelete",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID do usuário",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário deletado com sucesso"
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado"
+                    },
+                    "500": {
+                        "description": "Erro ao deletar usuário"
+                    }
+                }
+            }
+        },
+        "/user/name/{name}": {
+            "get": {
+                "summary": "Retorna um usuário pelo nome",
+                "operationId": "getUserByName",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "required": true,
+                        "description": "Nome do usuário",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado"
+                    },
+                    "500": {
+                        "description": "Erro ao buscar usuário"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "summary": "Faz login de um usuário",
+                "operationId": "userLogin",
+                "tags": [
+                    "Users"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Login"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login realizado com sucesso"
+                    },
+                    "400": {
+                        "description": "Dados inválidos"
+                    },
+                    "500": {
+                        "description": "Erro ao fazer login"
+                    }
+                }
+            }
+        },
+        "/courses": {
+            "get": {
+                "summary": "Retorna todos os cursos",
+                "operationId": "getCourses",
+                "tags": [
+                    "Courses"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cursos encontrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Course"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao buscar cursos"
+                    }
+                }
+            }
+        },
+        "/course": {
+            "post": {
+                "summary": "Cria um novo curso",
+                "operationId": "creatingCourse",
+                "tags": [
+                    "Courses"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Course"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Curso criado com sucesso"
+                    },
+                    "400": {
+                        "description": "Dados inválidos"
+                    },
+                    "500": {
+                        "description": "Erro ao criar curso"
+                    }
+                }
+            }
+        },
+        "/course/{id}": {
+            "get": {
+                "summary": "Retorna um curso pelo ID",
+                "operationId": "getCourseById",
+                "tags": [
+                    "Courses"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID do curso",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Curso encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Course"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Curso não encontrado"
+                    },
+                    "500": {
+                        "description": "Erro ao buscar curso"
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Atualiza um curso",
+                "operationId": "updateCourse",
+                "tags": [
+                    "Courses"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID do curso",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Course"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Curso atualizado com sucesso"
+                    },
+                    "404": {
+                        "description": "Curso não encontrado"
+                    },
+                    "500": {
+                        "description": "Erro ao atualizar curso"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deleta um curso",
+                "operationId": "deleteCourse",
+                "tags": [
+                    "Courses"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID do curso",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Curso deletado com sucesso"
+                    },
+                    "404": {
+                        "description": "Curso não encontrado"
+                    },
+                    "500": {
+                        "description": "Erro ao deletar curso"
+                    }
+                }
+            }
+        },
+        "/videos": {
+            "get": {
+                "summary": "Retorna todos os vídeos",
+                "operationId": "getVideos",
+                "tags": [
+                    "Videos"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Vídeos encontrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Video"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao buscar vídeos"
+                    }
+                }
+            }
+        },
+        "/video": {
+            "post": {
+                "summary": "Adiciona um novo vídeo",
+                "operationId": "addVideo",
+                "tags": [
+                    "Videos"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Video"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Vídeo adicionado com sucesso"
+                    },
+                    "400": {
+                        "description": "Dados inválidos"
+                    },
+                    "500": {
+                        "description": "Erro ao adicionar vídeo"
+                    }
+                }
+            }
+        },
+        "/video/{id}": {
+            "get": {
+                "summary": "Retorna um vídeo pelo ID",
+                "operationId": "getOneVideo",
+                "tags": [
+                    "Videos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID do vídeo",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Vídeo encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Video"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Vídeo não encontrado"
+                    },
+                    "500": {
+                        "description": "Erro ao buscar vídeo"
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Atualiza um vídeo",
+                "operationId": "updateVideo",
+                "tags": [
+                    "Videos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID do vídeo",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Video"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Vídeo atualizado com sucesso"
+                    },
+                    "404": {
+                        "description": "Vídeo não encontrado"
+                    },
+                    "500": {
+                        "description": "Erro ao atualizar vídeo"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deleta um vídeo",
+                "operationId": "deleteVideo",
+                "tags": [
+                    "Videos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID do vídeo",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Vídeo deletado com sucesso"
+                    },
+                    "404": {
+                        "description": "Vídeo não encontrado"
+                    },
+                    "500": {
+                        "description": "Erro ao deletar vídeo"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Login": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Course": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Video": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    },
+                    "courseId": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
