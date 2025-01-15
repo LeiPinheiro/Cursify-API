@@ -5,4 +5,4 @@ Thumbs.db
 .vscode/
 build/
 dist/
-gitignore
+.gitignore
